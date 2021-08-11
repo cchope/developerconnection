@@ -1,46 +1,58 @@
 package com.developerconnection.dcbackend.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import java.util.List;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name="Developer")
+
+
+@Document
 public class Developer {
 
     @Id
     private String username;
-
-    @Column 
+ 
     private String email;
 
-    @Column 
-    private String password;
+    // private String password;
 
-    //generated, year account created
-    @Column
-    private int usersince;
+    // // //generated, year account created
+    // private int usersince;
 
-    @Column 
-    private String bio;
+    // private String bio;
 
-    @OneToMany
-    private List<DeveloperPost> posts;
+    // private List<DeveloperPost> posts;
 
 
     public Developer() {}
 
-    public Developer(String username, String email, String password, String bio, int usersince) {
+    public Developer(String username, String email) {
+        // String password, String bio, int usersince
         this.username = username;
         this.email = email;
-        this.password = password;
-        this.bio = bio;
-        this.usersince = usersince;
+        // this.password = password;
+        // this.bio = bio;
+        // this.usersince = usersince;
     
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
 
     
 
