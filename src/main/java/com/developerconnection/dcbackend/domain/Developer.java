@@ -7,6 +7,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -23,7 +25,7 @@ public class Developer {
  
     private String email;
 
-    @JsonIgnore
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
 
     // generated, year account created
@@ -68,10 +70,12 @@ public class Developer {
         return this.email;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return this.password;
     }
 
+    @JsonIgnore
     public void setPassword(String password) {
         this.password = password;
     }

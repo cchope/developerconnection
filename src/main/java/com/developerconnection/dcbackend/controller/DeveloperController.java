@@ -14,6 +14,7 @@ import com.developerconnection.dcbackend.service.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,9 +32,6 @@ public class DeveloperController {
     @Autowired
     DeveloperService developerService;
 
-    @Autowired 
-    DeveloperPostService postService;
-
     @PostMapping(value="/developer", consumes = "application/json",
     produces = "application/json")
     public ResponseEntity<Developer> createDeveloper(@RequestBody Developer new_dev) {
@@ -47,35 +45,18 @@ public class DeveloperController {
         return developerService.getDeveloper(username);
     }
 
-    @PostMapping("/developer/{username}/dcpost")
-    public void createDeveloperPost(@PathVariable String username, @RequestBody DeveloperPost new_post) {
-        Developer developer = developerService.getDeveloper(username);
-        // developer.addPost(new_post);
-        // ObjectId developer_id = username;
-        new_post.setDeveloper(developer);
-        new_post.setPostdate(LocalDateTime.now());
-        postService.createDeveloperPost(new_post);
-    }
 
-    @GetMapping("/developer/{username}/dcpost")
-    public List<DeveloperPost> getDeveloperPosts(@PathVariable String username) {
-        return postService.getAllDeveloperPosts(username);
+    @PutMapping("/developer/{username}")
+    public ResponseEntity<Developer> updateDeveloper(@PathVariable String username, @RequestBody Developer updatedDeveloper){
+        return new ResponseEntity<>(developerService.updateDeveloper(username, updatedDeveloper), HttpStatus.OK);
     }
 
 
-
-
-    // @PutMapping("/developer/{username}")
-    // public Developer updatDeveloper(@PathVariable String username, @RequestBody Developer updatDeveloper) {
-
-    // }
-
-
-
-
-    
-
-    
+    @DeleteMapping("developer/{username}")
+    public void deleteDeveloper(@PathVariable String username){
+        developerService.deleteDeveloper(username);
+        System.out.println("Developer Deleted");
+    }
 
 
 }

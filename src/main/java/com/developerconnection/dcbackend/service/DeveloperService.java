@@ -23,7 +23,7 @@ public class DeveloperService {
 
     }
 
-    public Developer updatDeveloper(String username, Developer updatedDeveloper) {
+    public Developer updateDeveloper(String username, Developer updatedDeveloper) {
         Developer developerToUpdate = developerRepository.findById(username).get();
         developerToUpdate.setUsername(updatedDeveloper.getUsername());
         developerToUpdate.setPassword(updatedDeveloper.getPassword());

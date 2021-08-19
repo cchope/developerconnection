@@ -16,11 +16,11 @@ public class DeveloperPostService {
 
     public DeveloperPostService() {}
 
-    public void createDeveloperPost(DeveloperPost new_post){
-        postRepository.save(new_post);
+    public DeveloperPost createDeveloperPost(DeveloperPost new_post){
+        return postRepository.save(new_post);
     }
 
-    public DeveloperPost getDeveloperPost(Long id) {
+    public DeveloperPost getDcPost(Long id) {
         return postRepository.findById(id).get();
 
     }
@@ -29,6 +29,22 @@ public class DeveloperPostService {
         return postRepository.findByDeveloper_username(developer_username);
     }
 
- 
+
+    public DeveloperPost updateDeveloperPost(Long postid,  DeveloperPost updatedPost) {
+        DeveloperPost developerPostToUpdate = postRepository.findById(postid).get();
+        developerPostToUpdate.setTitle(updatedPost.getTitle());
+        developerPostToUpdate.setDescription(updatedPost.getDescription());
+        developerPostToUpdate.setRole(updatedPost.getRole());
+        developerPostToUpdate.setAvailability(updatedPost.getAvailablity());
+        developerPostToUpdate.setCompensation(updatedPost.getCompensation());
+        return postRepository.save(developerPostToUpdate);
+    }
+
+    public void deleteDeveloperPost(Long postid) {
+        postRepository.deleteById(postid);
+    }
+
+
+
 
 }
